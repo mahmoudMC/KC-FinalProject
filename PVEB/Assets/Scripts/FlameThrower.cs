@@ -11,7 +11,7 @@ public class FlameThrower : MonoBehaviour
 
     // stats
     float range;
-    int damage;
+    public int damage1, damage2;
     void Start()
     {
         fire = transform.parent.GetChild(1).GetComponent<ParticleSystem>();

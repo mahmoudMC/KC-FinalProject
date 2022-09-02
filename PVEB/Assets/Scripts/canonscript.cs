@@ -11,9 +11,8 @@ public class canonscript : MonoBehaviour
     AudioSource auds;
 
     // stats
-    float range;
-    int damage;
-    float speed = 3;
+    public int damage1, damage2;
+    public float speed = 3;
 
     void Start()
     {
@@ -39,6 +38,8 @@ public class canonscript : MonoBehaviour
         {
             auds.Play();
             currentbullet = Instantiate(bullet, mainbody.position, Quaternion.FromToRotation(Vector3.up, currentenemy.transform.position - mainbody.position));
+            currentbullet.GetComponent<bullets>().dmgToHealth = damage1;
+            currentbullet.GetComponent<bullets>().dmgToShield = damage2;
             currentbullet.GetComponent<bullets>().theEnemy = currentenemy.transform;
         }
         StartCoroutine(shootenemy());

@@ -37,6 +37,7 @@ public class blueenemies : MonoBehaviour
         }
         if(health <= 0)
         {
+            GameObject.FindObjectOfType<CoinsManager>().coins += Maxhp / 5;
             Destroy(gameObject);
         }
 
@@ -54,22 +55,22 @@ public class blueenemies : MonoBehaviour
         {
             if (shield > 0)
             {
-                shield -= 10;
+                shield -= collision.gameObject.GetComponent<bullets>().dmgToShield;
             }
             else
             {
-                health -= 20;
+                health -= collision.gameObject.GetComponent<bullets>().dmgToHealth;
             }
         }
         if(collision.gameObject.tag == "arrow")
         {
             if (shield > 0)
             {
-                shield -= 20;
+                shield -= collision.gameObject.GetComponent<bullets>().dmgToShield;
             }
             else
             {
-                health -= 10;
+                health -= collision.gameObject.GetComponent<bullets>().dmgToHealth;
             }
         }
     }
@@ -86,20 +87,20 @@ public class blueenemies : MonoBehaviour
     {
         if (!gettingfire)
         {
-            StartCoroutine(Burning());
+            StartCoroutine(Burning(other.transform.parent.GetChild(0).GetComponent<FlameThrower>().damage1, other.transform.parent.GetChild(0).GetComponent<FlameThrower>().damage2));
             gettingfire = true;
         }
     }
 
-    IEnumerator Burning()
+    IEnumerator Burning(int damagenumber, int damageshield)
     {
         if (shield > 0)
         {
-            shield -= 1;
+            shield -= damageshield;
         }
         else
         {
-            health -= 2;
+            health -= damagenumber;
         }
         yield return new WaitForSeconds(0.05f);
         gettingfire = false;

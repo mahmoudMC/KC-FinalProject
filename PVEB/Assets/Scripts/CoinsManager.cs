@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CoinsManager : MonoBehaviour
 {
 
-    public int coins = 0;
+    public float coins = 0;
     public Text coinsText;
     public GameObject background;
 
@@ -93,31 +93,31 @@ public class CoinsManager : MonoBehaviour
     public void purchase(int cost)
     {
         bc = currentblock.gameObject.GetComponent<blocksclick>();
-        if (coins >= cost && cost == 75)
+        if (coins >= cost && cost == 75 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[4], currentblock.position, currentblock.rotation);
             bc.currentTower = 5;
             coins -= cost;
         }
-        else if (coins >= cost && cost == 100)
+        else if (coins >= cost && cost == 100 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[0], currentblock.position, currentblock.rotation);
             bc.currentTower = 1;
             coins -= cost;
         }
-        else if (coins >= cost && cost == 150)
+        else if (coins >= cost && cost == 150 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[1], currentblock.position, currentblock.rotation);
             bc.currentTower = 2;
             coins -= cost;
         }
-        else if (coins >= cost && cost == 250)
+        else if (coins >= cost && cost == 250 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[3], currentblock.position, currentblock.rotation);
             bc.currentTower = 4;
             coins -= cost;
         }
-        else if (coins >= cost && cost == 500)
+        else if (coins >= cost && cost == 500 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[2], currentblock.position, currentblock.rotation);
             bc.currentTower = 3;

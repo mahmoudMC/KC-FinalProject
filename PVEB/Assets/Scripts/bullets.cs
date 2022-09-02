@@ -6,6 +6,7 @@ public class bullets : MonoBehaviour
 {
     float speed = 0.05f;
     public Transform theEnemy;
+    public int dmgToHealth, dmgToShield;
     void Start()
     {
         

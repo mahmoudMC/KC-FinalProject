@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GoldMiner : MonoBehaviour
 {
-    public int miningSpeed = 10;
-    public int CoinsMultiply = 1;
+    int miningSpeed = 10;
+    public float CoinsMultiply = 1;
     bool currentlymining = false;
     CoinsManager managers;
     // Start is called before the first frame update
