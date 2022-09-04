@@ -14,9 +14,9 @@ public class MainMenu : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("music") / 100f;
     }
 
     public void openguide()
@@ -45,7 +45,7 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        print("loadingGame");
+        SceneManager.LoadScene(1);
     }
     public void ChooseMap()
     {
@@ -55,6 +55,6 @@ public class MainMenu : MonoBehaviour
 
     public void CloseGame()
     {
-        print("ClosingGame");
+        Application.Quit();
     }
 }

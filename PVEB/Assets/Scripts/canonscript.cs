@@ -12,7 +12,7 @@ public class canonscript : MonoBehaviour
 
     // stats
     public int damage1, damage2;
-    public float speed = 3;
+    public float speed = 2;
 
     void Start()
     {

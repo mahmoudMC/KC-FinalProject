@@ -6,6 +6,7 @@ public class Grenades : MonoBehaviour
 {
     int totaldamage = 300;
     bool ready = false;
+    bool ignited = false;
     public blocksclick currentblockon;
 
     public ParticleSystem smoke;
@@ -27,8 +28,9 @@ public class Grenades : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("enemy"))
+        if (collision.gameObject.CompareTag("enemy") && !ignited)
         {
+            ignited = true;
             StartCoroutine(boom());
         }
     }

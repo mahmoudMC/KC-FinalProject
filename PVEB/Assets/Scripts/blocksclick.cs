@@ -8,7 +8,8 @@ public class blocksclick : MonoBehaviour
     public int currentTower;
     public GameObject towerbuilt;
     public int[] currentlvl = new int[6];
-    public int dmgtohealth, dmgtoshield, speed;
+    public int dmgtohealth, dmgtoshield;
+    public float speed;
     public float multi;
     void Start()
     {
@@ -23,6 +24,11 @@ public class blocksclick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (currentlvl[5] > 3)
+        {
+            currentlvl[5] = 3;
+        }
+
         if (currentTower == 5 && towerbuilt != null)
         {
             towerbuilt.transform.GetChild(0).gameObject.GetComponent<Grenades>().currentblockon = GetComponent<blocksclick>();
@@ -32,7 +38,7 @@ public class blocksclick : MonoBehaviour
         {
             dmgtohealth = currentlvl[3] * 20;
             dmgtoshield = currentlvl[4] * 10;
-            speed = -currentlvl[5] + 4;
+            speed = 2.5f - (0.5f * currentlvl[5]);
             towerbuilt.transform.GetChild(0).GetComponent<canonscript>().damage1 = dmgtohealth;
             towerbuilt.transform.GetChild(0).GetComponent<canonscript>().damage2 = dmgtoshield;
             towerbuilt.transform.GetChild(0).GetComponent<canonscript>().speed = speed;
@@ -41,7 +47,7 @@ public class blocksclick : MonoBehaviour
         {
             dmgtohealth = currentlvl[3] * 10;
             dmgtoshield = currentlvl[4] * 20;
-            speed = -currentlvl[5] + 4;
+            speed = 2.5f - (0.5f * currentlvl[5]);
             towerbuilt.transform.GetChild(0).GetComponent<BallistaScript>().damage1 = dmgtohealth;
             towerbuilt.transform.GetChild(0).GetComponent<BallistaScript>().damage2 = dmgtoshield;
             towerbuilt.transform.GetChild(0).GetComponent<BallistaScript>().speed = speed;

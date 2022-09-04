@@ -31,7 +31,7 @@ public class GoldMiner : MonoBehaviour
 
     IEnumerator Mining()
     {
-        managers.coins += 20 * CoinsMultiply;
+        managers.coins += 30 * CoinsMultiply;
         yield return new WaitForSeconds(miningSpeed);
         currentlymining = false;
     }

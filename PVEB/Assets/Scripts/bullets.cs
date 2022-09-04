@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class bullets : MonoBehaviour
 {
-    float speed = 0.05f;
+    float speed = 15;
     public Transform theEnemy;
     public int dmgToHealth, dmgToShield;
     void Start()
@@ -16,7 +16,7 @@ public class bullets : MonoBehaviour
     {
         if (theEnemy != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, theEnemy.position, speed);
+            transform.position = Vector3.MoveTowards(transform.position, theEnemy.position, speed * Time.deltaTime);
         }
         else
         {

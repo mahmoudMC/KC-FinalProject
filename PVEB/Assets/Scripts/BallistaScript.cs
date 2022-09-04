@@ -12,7 +12,7 @@ public class BallistaScript : MonoBehaviour
 
     // stats
     public int damage1, damage2;
-    public float speed = 3;
+    public float speed = 2;
 
     void Start()
     {
@@ -38,10 +38,13 @@ public class BallistaScript : MonoBehaviour
         {
             auds.Play();
             yield return new WaitForSeconds(1);
-            currentbullet = Instantiate(bullet, mainbody.position, Quaternion.FromToRotation(Vector3.up, currentenemy.transform.position - mainbody.position));
-            currentbullet.GetComponent<bullets>().dmgToHealth = damage1;
-            currentbullet.GetComponent<bullets>().dmgToShield = damage2;
-            currentbullet.GetComponent<bullets>().theEnemy = currentenemy.transform;
+            if (currentenemy != null)
+            {
+                currentbullet = Instantiate(bullet, mainbody.position, Quaternion.FromToRotation(Vector3.up, currentenemy.transform.position - mainbody.position));
+                currentbullet.GetComponent<bullets>().dmgToHealth = damage1;
+                currentbullet.GetComponent<bullets>().dmgToShield = damage2;
+                currentbullet.GetComponent<bullets>().theEnemy = currentenemy.transform;
+            }
         }
         StartCoroutine(shootenemy());
     }

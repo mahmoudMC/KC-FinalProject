@@ -72,6 +72,18 @@ public class RaycastManager : MonoBehaviour
                 StartCoroutine(cooldown());
             }
         }
+
+        for (int i = 0; i < 6; i++)
+        {
+            if (manager.coins >= maths[i])
+            {
+                panels[i].GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                panels[i].GetComponent<Image>().color = Color.red;
+            }
+        }
     }
 
     /*private void OnMouseDown()
@@ -86,13 +98,13 @@ public class RaycastManager : MonoBehaviour
     {
         if (hit.collider.gameObject.transform.position.y < -1.7f)
         {
-            purchase.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 275, 0);
-            purchase.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector3(379, -70, 0);
+            purchase.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 390, 0);
+            purchase.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector3(-20, -99, 0);
         }
         else
         {
             purchase.GetComponent<RectTransform>().anchoredPosition = new Vector3(0, 59, 0);
-            purchase.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector3(379, 66, 0);
+            purchase.transform.GetChild(0).GetComponent<RectTransform>().anchoredPosition = new Vector3(-20, -20, 0);
         }
         purchaseopen = true;
         Instantiate(particle, hit.collider.gameObject.transform.position, particle.transform.rotation);
@@ -114,15 +126,18 @@ public class RaycastManager : MonoBehaviour
                 // levels
                 levels[3].text = "Level: " + bsc.currentlvl[3];
                 levels[4].text = "Level: " + bsc.currentlvl[4];
-                levels[5].text = "Level: " + bsc.currentlvl[5];
+                if (bsc.currentlvl[5] < 3)
+                    levels[5].text = "Level: " + bsc.currentlvl[5];
                 // maths
                 maths[3] = (100 * bsc.currentlvl[3]) + (50 * (bsc.currentlvl[3] - 1));
-                maths[4] = (100 * bsc.currentlvl[3]) + (50 * (bsc.currentlvl[3] - 1));
-                maths[5] = (100 * bsc.currentlvl[3]) + (50 * (bsc.currentlvl[3] - 1));
+                maths[4] = (100 * bsc.currentlvl[4]) + (50 * (bsc.currentlvl[4] - 1));
+                if (bsc.currentlvl[5] < 3)
+                    maths[5] = (100 * bsc.currentlvl[5]) + (50 * (bsc.currentlvl[5] - 1));
                 // prices
                 prices[3].text = maths[3] + "$";
                 prices[4].text = maths[4] + "$";
-                prices[5].text = maths[5] + "$";
+                if (bsc.currentlvl[5] < 3)
+                    prices[5].text = maths[5] + "$";
                 // checking prices
                 for (int i = 3; i <6; i++)
                 {
@@ -147,7 +162,7 @@ public class RaycastManager : MonoBehaviour
                 levels[2].text = "Level: " + bsc.currentlvl[2];
                 // maths
                 maths[1] = (300 * bsc.currentlvl[1]) + (75 * (bsc.currentlvl[1] - 2));
-                maths[2] = (300 * bsc.currentlvl[1]) + (75 * (bsc.currentlvl[1] - 2));
+                maths[2] = (300 * bsc.currentlvl[2]) + (75 * (bsc.currentlvl[2] - 2));
                 // prices
                 prices[1].text = maths[1] + "$";
                 prices[2].text = maths[2] + "$";
@@ -179,7 +194,7 @@ public class RaycastManager : MonoBehaviour
                 }
                 else
                 {
-                    levels[0].GetComponent<Image>().color = Color.red;
+                    panels[0].GetComponent<Image>().color = Color.red;
                 }
                 upgrade.GetChild(0).gameObject.SetActive(true);
                 upgrade.GetChild(1).gameObject.SetActive(false);
@@ -219,16 +234,13 @@ public class RaycastManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < 6; i++) 
+        if (bsc.currentlvl[5] >= 3)
         {
-            if (manager.coins >= maths[i])
-            {
-                panels[i].GetComponent<Image>().color = Color.green;
-            }
-            else
-            {
-                panels[i].GetComponent<Image>().color = Color.red;
-            }
+            prices[5].text = "Level: Maxed";
+            maths[5] = 100000000;
+            panels[5].GetComponent<Image>().color = Color.red;
         }
+
+        
     }
 }

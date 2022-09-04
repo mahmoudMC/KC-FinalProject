@@ -20,6 +20,7 @@ public class CoinsManager : MonoBehaviour
     void Start()
     {
         raycm = GetComponent<RaycastManager>();
+        coins = 350;
     }
 
     void Update()
@@ -111,7 +112,7 @@ public class CoinsManager : MonoBehaviour
             bc.currentTower = 2;
             coins -= cost;
         }
-        else if (coins >= cost && cost == 250 && bc.currentTower == 0)
+        else if (coins >= cost && cost == 175 && bc.currentTower == 0)
         {
             bc.towerbuilt = Instantiate(TowerID[3], currentblock.position, currentblock.rotation);
             bc.currentTower = 4;

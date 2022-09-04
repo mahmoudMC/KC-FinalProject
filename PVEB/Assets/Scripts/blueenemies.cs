@@ -18,8 +18,10 @@ public class blueenemies : MonoBehaviour
     RectTransform shslider;
 
     Animator ani;
+    WavesManager wavesManager;
     void Start()
     {
+        wavesManager = GameObject.FindObjectOfType<WavesManager>();
         ani = GetComponent<Animator>();
         ani.speed = speed;
         health = Maxhp;
@@ -37,7 +39,8 @@ public class blueenemies : MonoBehaviour
         }
         if(health <= 0)
         {
-            GameObject.FindObjectOfType<CoinsManager>().coins += Maxhp / 5;
+            GameObject.FindObjectOfType<CoinsManager>().coins += (Maxhp / 5) * 2;
+            wavesManager.totalEnemies--;
             Destroy(gameObject);
         }
 
@@ -80,6 +83,7 @@ public class blueenemies : MonoBehaviour
         if(collision.gameObject.CompareTag("end"))
         {
             Destroy(gameObject);
+            wavesManager.totalEnemies--;
         }
     }
 
