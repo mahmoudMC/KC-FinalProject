@@ -36,6 +36,7 @@ public class blocksclick : MonoBehaviour
 
         if (currentTower == 1)
         {
+            //print(currentlvl[5]); // Checking Why it changes
             dmgtohealth = currentlvl[3] * 20;
             dmgtoshield = currentlvl[4] * 10;
             speed = 2.5f - (0.5f * currentlvl[5]);

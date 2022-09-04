@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grenades : MonoBehaviour
 {
     int totaldamage = 300;
-    bool ready = false;
+    //bool ready = false;
     bool ignited = false;
     public blocksclick currentblockon;
 
@@ -15,7 +15,7 @@ public class Grenades : MonoBehaviour
     void Start()
     {
         aud = transform.parent.GetComponent<AudioSource>();
-        ready = false;
+        //ready = false;
         totaldamage = 300;
         smoke.Stop();
     }
@@ -41,7 +41,7 @@ public class Grenades : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         aud.Play();
-        ready = true;
+        explosion();
         smoke.Play();
         yield return new WaitForSeconds(0.5f);
         smoke.Stop();
@@ -50,12 +50,20 @@ public class Grenades : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (ready)
         {
             ready = false;
             collision.gameObject.GetComponent<blueenemies>().booming(totaldamage);
+        }
+    }*/
+
+    void explosion()
+    {
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("enemy"))
+        {
+            enemy.GetComponent<blueenemies>().booming(totaldamage);
         }
     }
 }

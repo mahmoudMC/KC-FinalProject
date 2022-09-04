@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WavesManager : MonoBehaviour
@@ -13,9 +14,16 @@ public class WavesManager : MonoBehaviour
     bool spawning = false;
     bool paused = false;
     public GameObject pause;
+
+    public int PlayerHealth = 0;
+    public Text playerhealth;
+    public GameObject LosingScreen;
+    bool died = false;
     // Start is called before the first frame update
     void Start()
     {
+        died = false;
+        PlayerHealth = 0;
         wave = 0;
         wavesani = WavesText.gameObject.GetComponent<Animator>();
         StartCoroutine(Wave1To3());
@@ -24,6 +32,7 @@ public class WavesManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        playerhealth.text = PlayerHealth + "/5 Enemies Entered";
         GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat("music") / 100f;
         if (totalEnemies == 0 && !spawning)
         {
@@ -38,6 +47,20 @@ public class WavesManager : MonoBehaviour
             else
                 Application.Quit();
         }
+
+        if (PlayerHealth >= 5 && !died)
+        {
+            died = true;
+            LosingScreen.SetActive(true);
+            StartCoroutine(Losing());
+        }
+    }
+
+    IEnumerator Losing()
+    {
+        yield return new WaitForSeconds(5);
+        SceneManager.LoadScene(0);
+        died = false;
     }
 
     public void Pause()

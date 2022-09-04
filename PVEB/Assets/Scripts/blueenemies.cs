@@ -13,12 +13,14 @@ public class blueenemies : MonoBehaviour
     bool hasShield = true;
 
     bool gettingfire = false;
+    bool insiderange = false;
 
     RectTransform hpslider;
     RectTransform shslider;
 
     Animator ani;
     WavesManager wavesManager;
+    public bool IsKing;
     void Start()
     {
         wavesManager = GameObject.FindObjectOfType<WavesManager>();
@@ -28,6 +30,7 @@ public class blueenemies : MonoBehaviour
         shield = Maxshield;
         hpslider = transform.GetChild(1).GetChild(0).gameObject.GetComponent<RectTransform>();
         shslider = transform.GetChild(1).GetChild(1).gameObject.GetComponent<RectTransform>();
+        
     }
 
     void Update()
@@ -84,6 +87,26 @@ public class blueenemies : MonoBehaviour
         {
             Destroy(gameObject);
             wavesManager.totalEnemies--;
+            if (IsKing)
+                wavesManager.PlayerHealth += 5;
+            else if (hasShield)
+                wavesManager.PlayerHealth += 2;
+            else
+                wavesManager.PlayerHealth++;
+        }
+
+        if (collision.gameObject.CompareTag("bomb") && !insiderange)
+        {
+            insiderange = true;
+            StartCoroutine(Cancel());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("bomb") && insiderange)
+        {
+            insiderange = false;
         }
     }
 
@@ -112,18 +135,28 @@ public class blueenemies : MonoBehaviour
 
     public void booming(int bombdamage)
     {
-        if (shield > 0)
+        if (insiderange)
         {
-            shield -= bombdamage;
+            if (shield > 0)
+            {
+                shield -= bombdamage;
+            }
+            else
+            {
+                health -= bombdamage;
+            }
+            if (shield < 0)
+            {
+                health += shield;
+                shield = 0;
+            }
         }
-        else
-        {
-            health -= bombdamage;
-        }
-        if (shield < 0)
-        {
-            health += shield;
-            shield = 0;
-        }
+    }
+
+    IEnumerator Cancel()
+    {
+        yield return new WaitForSeconds(1.1f);
+        if (insiderange)
+            insiderange = false;
     }
 }

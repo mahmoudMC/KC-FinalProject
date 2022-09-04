@@ -9,6 +9,7 @@ TagManager:
   - gold
   - arrow
   - end
+  - bomb
   layers:
   - Default
   - TransparentFX

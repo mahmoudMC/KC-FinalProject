@@ -427,6 +427,7 @@ MonoBehaviour:
   Maxshield: 13000
   shield: 13000
   speed: 0.3
+  IsKing: 1
 --- !u!1 &2181239004662794340
 GameObject:
   m_ObjectHideFlags: 0

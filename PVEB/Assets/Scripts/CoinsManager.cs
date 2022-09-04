@@ -54,7 +54,7 @@ public class CoinsManager : MonoBehaviour
             flapanel.GetComponent<Image>().color = Color.red;
         }
 
-        if (coins >= 250)
+        if (coins >= 175)
         {
             minpanel.GetComponent<Image>().color = Color.green;
         }
